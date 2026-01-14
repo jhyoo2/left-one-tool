@@ -6,18 +6,23 @@ const client = new Client("defaultkey", host, "7650", useSSL);
 const email = "jhyoo89591@gmail.com";
 const password = "Vmflxkdla1!";
 
+const xorKey = "Wc0gT/1xfFAjlRwip7l7MmEdjw7DzMXa";
+const xorKeyLength = xorKey.length;
+const xorKeyCodes = new Array(xorKeyLength);
+for (let i = 0; i < xorKeyLength; i++) {
+  xorKeyCodes[i] = xorKey.charCodeAt(i);
+}
+
 function xorConvert(text) {
-  const key = "Wc0gT/1xfFAjlRwip7l7MmEdjw7DzMXa";
-  // console.log(text+ '//' + key);
   text = text == undefined || text == null ? "" : text;
-  return Array.prototype.slice
-    .call(text)
-    .map(function (c, index) {
-      return String.fromCharCode(
-        c.charCodeAt(0) ^ key[index % key.length].charCodeAt(0)
-      );
-    })
-    .join("");
+  const len = text.length;
+  const out = new Array(len);
+  for (let i = 0; i < len; i++) {
+    out[i] = String.fromCharCode(
+      text.charCodeAt(i) ^ xorKeyCodes[i % xorKeyLength]
+    );
+  }
+  return out.join("");
 }
 
 export default class NakamaManager {
@@ -37,7 +42,7 @@ export default class NakamaManager {
   session = null;
 
   // (2) game data
-  gameId = "game_data";
+  gameId = "game_datas";
   dataList = [
     "balance_data",
     "collection_data",
