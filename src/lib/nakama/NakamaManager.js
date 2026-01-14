@@ -1,5 +1,22 @@
 import { Client } from "@heroiclabs/nakama-js";
 
+////////////////////////////////////////////////////////////
+
+const gameId = "blade_mater";
+const dataList = [
+  "balance_data",
+  "collection_data",
+  "event_data",
+  "map_data",
+  "merge_data",
+  "special_order",
+  "store_data",
+  "text_data",
+  "unit_data",
+];
+
+//////////////////////////////////////////////////////////////
+
 const useSSL = false;
 const host = "www.chamelio.kr";
 const client = new Client("defaultkey", host, "7650", useSSL);
@@ -42,18 +59,6 @@ export default class NakamaManager {
   session = null;
 
   // (2) game data
-  gameId = "blade_mater";
-  dataList = [
-    "balance_data",
-    "collection_data",
-    "event_data",
-    "map_data",
-    "merge_data",
-    "special_order",
-    "store_data",
-    "text_data",
-    "unit_data",
-  ];
   gameData = {};
 
   async getSession() {
@@ -94,7 +99,7 @@ export default class NakamaManager {
       if (!this.gameData.baseData) {
         await this.loadBaseData();
 
-        const list = this.dataList;
+        const list = dataList;
         for (let i in list) {
           const id = list[i];
           await this.loadGameData(id);
@@ -111,8 +116,8 @@ export default class NakamaManager {
     try {
       const data = await this.client.rpc(this.session, rpcid, {
         apiKey: "613d1bc0-68cd-4105-b491-e6140fdd663f",
-        id: this.gameId,
-        list: this.dataList,
+        id: gameId,
+        list: dataList,
       });
       console.log("check base data", data);
       this.gameData = data.payload;
@@ -129,7 +134,7 @@ export default class NakamaManager {
     try {
       const data = await this.client.rpc(this.session, rpcid, {
         apiKey: "613d1bc0-68cd-4105-b491-e6140fdd663f",
-        id: this.gameId,
+        id: gameId,
         dataId,
       });
 

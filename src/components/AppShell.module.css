@@ -2,13 +2,16 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
-  background: radial-gradient(120% 120% at 10% 0%, #f4f7ff 0%, #eef1f8 55%, #e8edf7 100%);
+  background: radial-gradient(
+    120% 120% at 10% 0%,
+    #f4f7ff 0%,
+    #eef1f8 55%,
+    #e8edf7 100%
+  );
   color: #1b1f2a;
 }
 
 .header {
-  display: grid;
-  grid-template-columns: 120px 1fr 120px;
   align-items: center;
   padding: 18px 24px;
   background: #fff;
@@ -28,11 +31,46 @@
 }
 
 .title {
-  justify-self: center;
   font-size: 18px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.tabButton {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #d8deea;
+  background: #f4f6fb;
+  color: #1b1f2a;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tabButtonActive {
+  background: #1b1f2a;
+  color: #fff;
+  border-color: #1b1f2a;
+}
+
+.rightSlot {
+  justify-self: end;
 }
 
 .main {
@@ -47,11 +85,11 @@
 
 @media (max-width: 700px) {
   .header {
-    grid-template-columns: auto 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .title {
-    justify-self: start;
+    justify-self: center;
   }
 }
