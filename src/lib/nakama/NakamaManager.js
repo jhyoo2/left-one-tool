@@ -42,7 +42,7 @@ export default class NakamaManager {
   session = null;
 
   // (2) game data
-  gameId = "game_datas";
+  gameId = "blade_mater";
   dataList = [
     "balance_data",
     "collection_data",
@@ -55,9 +55,6 @@ export default class NakamaManager {
     "unit_data",
   ];
   gameData = {};
-
-  loadedNum = 0;
-  loadCB = null;
 
   async getSession() {
     if (!this.session) {
@@ -90,28 +87,26 @@ export default class NakamaManager {
     };
 
     return new Promise(async (resolve) => {
-      this.loadedNum++;
       if (!this.session) {
         await this.getSession();
-        this.loadedNum++;
-        if (this.loadCB) {
-          this.loadCB(1);
-        }
       }
 
       if (!this.gameData.baseData) {
         await this.loadBaseData();
-        this.loadedNum++;
-        if (this.loadCB) {
-          this.loadCB(2);
+
+        const list = this.dataList;
+        for (let i in list) {
+          const id = list[i];
+          await this.loadGameData(id);
         }
       }
 
+      console.log("check data complete", this.gameData);
       resolve(this);
     });
   }
 
-  async loadBaseData(baseData) {
+  async loadBaseData() {
     const rpcid = "load_base_data";
     try {
       const data = await this.client.rpc(this.session, rpcid, {
@@ -119,7 +114,33 @@ export default class NakamaManager {
         id: this.gameId,
         list: this.dataList,
       });
-      console.log("check data", data);
+      console.log("check base data", data);
+      this.gameData = data.payload;
+
+      return data.payload.success;
+    } catch (err) {
+      console.log("check error", err);
+      return "error";
+    }
+  }
+
+  async loadGameData(dataId) {
+    const rpcid = "load_game_data";
+    try {
+      const data = await this.client.rpc(this.session, rpcid, {
+        apiKey: "613d1bc0-68cd-4105-b491-e6140fdd663f",
+        id: this.gameId,
+        dataId,
+      });
+
+      let camalKey = dataId.replace(/_([a-z])/g, function (g) {
+        return g[1].toUpperCase();
+      });
+      camalKey = camalKey + "s";
+
+      this.gameData[camalKey] = data.payload;
+
+      console.log("check game data", dataId, data);
       return data.payload.success;
     } catch (err) {
       console.log("check error", err);

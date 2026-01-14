@@ -6,14 +6,10 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
-  const [loadedNum, setLoadedNum] = useState(0);
 
   useEffect(() => {
     const nakamaManager = NakamaManager.getInstance() as any;
     if (!nakamaManager.session) {
-      nakamaManager.loadCB = (num: number) => {
-        setLoadedNum((prev) => Math.max(prev, num));
-      };
       nakamaManager.initNakamaManager().then(() => {
         setLoaded(true);
       });
@@ -25,9 +21,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       {!loaded ? (
-        <div className={styles.loading}>
-          data is loading... {loadedNum} / 12
-        </div>
+        <div className={styles.loading}>data is loading...</div>
       ) : (
         <div className={styles.center}>
           <h1>Ready</h1>
