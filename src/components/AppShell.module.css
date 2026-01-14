@@ -1,0 +1,57 @@
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: radial-gradient(120% 120% at 10% 0%, #f4f7ff 0%, #eef1f8 55%, #e8edf7 100%);
+  color: #1b1f2a;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px;
+  align-items: center;
+  padding: 18px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e2e7f2;
+  box-shadow: 0 12px 24px rgba(15, 20, 30, 0.06);
+}
+
+.leftButton {
+  justify-self: start;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #d8deea;
+  background: #f7f9fc;
+  color: #1b1f2a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.title {
+  justify-self: center;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.main {
+  width: min(960px, 92vw);
+  margin: 48px auto 72px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  border: 1px solid rgba(216, 222, 234, 0.7);
+  box-shadow: 0 20px 48px rgba(20, 25, 35, 0.08);
+}
+
+@media (max-width: 700px) {
+  .header {
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+  }
+
+  .title {
+    justify-self: start;
+  }
+}
