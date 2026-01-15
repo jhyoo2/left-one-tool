@@ -153,13 +153,18 @@ export default class NakamaManager {
     }
   }
 
-  async setUnitAdmin(unitData) {
-    const rpcid = "set_unit_admin";
+  async saveGameData(key, parsedJson, merged = false) {
+    const rpcid = "save_game_data";
     try {
+      console.log("data result 02", key, parsedJson);
       const data = await this.client.rpc(this.session, rpcid, {
         apiKey: "613d1bc0-68cd-4105-b491-e6140fdd663f",
-        unitData: unitData,
+        id: gameId,
+        dataId: key,
+        data: parsedJson,
+        merged: Boolean(merged),
       });
+      console.log("data result 02", data);
       return data.payload.success;
     } catch (err) {
       return "error";
@@ -192,7 +197,7 @@ export default class NakamaManager {
     return JSON.parse(await r.text());
   }
 
-  async sendData(collection, doc, data) {
+  async sendData(collection, doc, data, merged = false) {
     const r = await fetch(
       "https://us-central1-alcatmist-2c78e.cloudfunctions.net/uploadData",
       {
@@ -205,6 +210,7 @@ export default class NakamaManager {
           collection: String(collection),
           doc: String(doc),
           data: JSON.stringify(data),
+          merged: Boolean(merged),
         }),
       }
     ).catch(() => {});

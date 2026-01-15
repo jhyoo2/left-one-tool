@@ -7,6 +7,7 @@ import styles from "@/common/Common.module.css";
 export default function DataSetter() {
   const [dbKey, setDbKey] = useState("");
   const [jsonText, setJsonText] = useState("");
+  const [merged, setMerged] = useState(false);
   const [sending, setSending] = useState(false);
 
   const handleSubmit = async () => {
@@ -26,17 +27,14 @@ export default function DataSetter() {
     setSending(true);
     try {
       const nakamaManager = NakamaManager.getInstance() as any;
-      const response = await nakamaManager.sendData(
-        "common_data",
+
+      const success = await nakamaManager.saveGameData(
         dbKey.trim(),
-        parsedJson
+        parsedJson,
+        merged
       );
 
-      const success =
-        response &&
-        (response.success === true ||
-          response.status === "200" ||
-          response.status === 200);
+      console.log("check response", success);
 
       if (success) {
         alert("저장 성공");
@@ -54,6 +52,14 @@ export default function DataSetter() {
     <div className={styles.panel}>
       <h2>공통 데이터 저장</h2>
       <div className={styles.form}>
+        <label className={styles.checkboxRow}>
+          <input
+            type="checkbox"
+            checked={merged}
+            onChange={(event) => setMerged(event.target.checked)}
+          />
+          <span>merged</span>
+        </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>db key</span>
           <input
