@@ -1,18 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type DragEvent } from "react";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import NakamaManager from "@/lib/nakama/NakamaManager";
 import styles from "@/common/Common.module.css";
+import { readFileAsync } from "@/common/Common";
 
 export default function DataSetter() {
   const [dbKey, setDbKey] = useState("");
   const [jsonText, setJsonText] = useState("");
   const [merged, setMerged] = useState(false);
   const [sending, setSending] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const handleSubmit = async () => {
     if (!dbKey.trim()) {
@@ -52,6 +54,23 @@ export default function DataSetter() {
     }
   };
 
+  const handleJsonDrop = async (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragOver(false);
+    const files = event.dataTransfer.files;
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const [file] = Array.from(files);
+    try {
+      const text = await readFileAsync(file, 1);
+      setJsonText(text);
+    } catch (error) {
+      alert("JSON 파일을 읽지 못했습니다.");
+    }
+  };
+
   return (
     <div className={styles.panel}>
       <h2>공통 데이터 저장</h2>
@@ -73,15 +92,28 @@ export default function DataSetter() {
           size="small"
           fullWidth
         />
-        <TextField
-          label="json"
-          value={jsonText}
-          onChange={(event) => setJsonText(event.target.value)}
-          placeholder='{"key":"value"}'
-          multiline
-          minRows={12}
-          fullWidth
-        />
+        <div
+          className={`${styles.dropTarget} ${
+            isDragOver ? styles.dropActive : ""
+          }`}
+          onDragOver={(event) => {
+            event.preventDefault();
+            setIsDragOver(true);
+          }}
+          onDragLeave={() => setIsDragOver(false)}
+          onDrop={handleJsonDrop}
+        >
+          <TextField
+            label="json"
+            value={jsonText}
+            onChange={(event) => setJsonText(event.target.value)}
+            placeholder='{"key":"value"}'
+            multiline
+            minRows={12}
+            fullWidth
+          />
+          <p className={styles.dropHint}>JSON 파일을 드래그 앤 드랍하세요.</p>
+        </div>
         <div className={styles.actionRow}>
           <Button
             variant="contained"
