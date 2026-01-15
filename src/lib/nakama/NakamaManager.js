@@ -2,7 +2,7 @@ import { Client } from "@heroiclabs/nakama-js";
 
 ////////////////////////////////////////////////////////////
 
-const gameId = "blade_mater";
+const gameId = "blade_master";
 const dataList = [
   "balance_data",
   "collection_data",

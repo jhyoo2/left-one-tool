@@ -1,4 +1,4 @@
-import BaseData from "./basedata";
+import BaseData from "./BaseData";
 
 export const sections = [
   {
