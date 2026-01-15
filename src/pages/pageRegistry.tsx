@@ -3,19 +3,24 @@
 import GameDataLayer from "@/pages/GameDataLayer";
 import UnitDataPanel from "@/pages/UnitDataPanel";
 import StageDataPanel from "@/pages/StageDataPanel";
+import CommonDataPanel from "@/pages/CommonDataPanel";
 
 export const pageEntries = [
   {
-    label: "1. 게임 데이터 관리",
+    label: "게임 데이터 관리",
     component: GameDataLayer,
   },
   {
-    label: "2. 유닛 데이터 관리",
+    label: "유닛 데이터 관리",
     component: UnitDataPanel,
   },
   {
-    label: "3. 스테이지 데이터 관리",
+    label: "스테이지 데이터 관리",
     component: StageDataPanel,
+  },
+  {
+    label: "공통 데이터 관리",
+    component: CommonDataPanel,
   },
 ];
 

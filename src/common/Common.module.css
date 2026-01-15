@@ -74,6 +74,63 @@
   color: #4a5163;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1b1f2a;
+}
+
+.textInput,
+.textArea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 190, 208, 0.8);
+  background: #fff;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #1b1f2a;
+}
+
+.textArea {
+  resize: vertical;
+  min-height: 220px;
+  font-family: "Courier New", monospace;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.primaryButton {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #1b1f2a;
+  background: #1b1f2a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .pageLayout {
   display: grid;
   grid-template-columns: minmax(140px, 180px) 1fr;
