@@ -9,11 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "plist": "^3.1.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@heroiclabs/nakama-js": "^2.3.0",
+    "@mui/material": "^7.3.7",
     "next": "16.1.1",
+    "plist": "^3.1.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "@heroiclabs/nakama-js": "^2.3.0"
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@types/node": "^20",

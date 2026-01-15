@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import TextField from "@mui/material/TextField";
 import NakamaManager from "@/lib/nakama/NakamaManager";
 import styles from "@/common/Common.module.css";
 
@@ -52,43 +56,40 @@ export default function DataSetter() {
     <div className={styles.panel}>
       <h2>공통 데이터 저장</h2>
       <div className={styles.form}>
-        <label className={styles.checkboxRow}>
-          <input
-            type="checkbox"
-            checked={merged}
-            onChange={(event) => setMerged(event.target.checked)}
-          />
-          <span>merged</span>
-        </label>
-        <label className={styles.field}>
-          <span className={styles.fieldLabel}>db key</span>
-          <input
-            className={styles.textInput}
-            type="text"
-            value={dbKey}
-            onChange={(event) => setDbKey(event.target.value)}
-            placeholder="예: common_config"
-          />
-        </label>
-        <label className={styles.field}>
-          <span className={styles.fieldLabel}>json</span>
-          <textarea
-            className={styles.textArea}
-            value={jsonText}
-            onChange={(event) => setJsonText(event.target.value)}
-            placeholder='{"key":"value"}'
-            rows={12}
-          />
-        </label>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={merged}
+              onChange={(event) => setMerged(event.target.checked)}
+            />
+          }
+          label="merged"
+        />
+        <TextField
+          label="db key"
+          value={dbKey}
+          onChange={(event) => setDbKey(event.target.value)}
+          placeholder="예: common_config"
+          size="small"
+          fullWidth
+        />
+        <TextField
+          label="json"
+          value={jsonText}
+          onChange={(event) => setJsonText(event.target.value)}
+          placeholder='{"key":"value"}'
+          multiline
+          minRows={12}
+          fullWidth
+        />
         <div className={styles.actionRow}>
-          <button
-            className={styles.primaryButton}
-            type="button"
+          <Button
+            variant="contained"
             onClick={handleSubmit}
             disabled={sending}
           >
             {sending ? "전송 중..." : "서버에 저장"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

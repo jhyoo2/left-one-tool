@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@mui/material/Button";
 import styles from "@/common/Common.module.css";
 import { useSectionState } from "@/common/useSectionState";
 import { sections } from "./sections";
@@ -14,18 +15,21 @@ export default function GameDataLayer() {
     <div className={styles.pageLayout}>
       <aside className={styles.pageNav}>
         {sections.map((section, index) => (
-          <button
+          <Button
             key={section.label}
-            className={
-              sectionKind === index
-                ? `${styles.pageNavButton} ${styles.pageNavButtonActive}`
-                : styles.pageNavButton
-            }
-            type="button"
+            variant={sectionKind === index ? "contained" : "outlined"}
+            size="small"
             onClick={() => handleSelect(index)}
+            sx={{
+              width: "75%",
+              alignSelf: "center",
+              textTransform: "none",
+              fontSize: 13,
+              fontWeight: 600,
+            }}
           >
             {section.label}
-          </button>
+          </Button>
         ))}
       </aside>
       <section className={styles.pageContent}>

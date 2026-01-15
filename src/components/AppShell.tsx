@@ -1,6 +1,7 @@
 "use client";
 
 import { PropsWithChildren } from "react";
+import Button from "@mui/material/Button";
 import styles from "@/common/Common.module.css";
 import { usePageContext } from "./PageContext";
 
@@ -16,18 +17,20 @@ export default function AppShell({ children }: PropsWithChildren) {
         <div className={styles.appShellTitleBlock}>
           <div className={styles.appShellTabs}>
             {pageNames.map((name, index) => (
-              <button
+              <Button
                 key={name}
-                className={
-                  pageKind === index
-                    ? `${styles.appShellTabButton} ${styles.appShellTabButtonActive}`
-                    : styles.appShellTabButton
-                }
-                type="button"
+                variant={pageKind === index ? "contained" : "outlined"}
+                size="small"
                 onClick={() => setPageKind(index)}
+                sx={{
+                  borderRadius: 1,
+                  textTransform: "none",
+                  fontSize: 12,
+                  fontWeight: 600,
+                }}
               >
                 {name}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
