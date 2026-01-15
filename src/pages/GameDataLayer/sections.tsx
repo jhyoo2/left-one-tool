@@ -1,7 +1,10 @@
+import BaseData from "./BaseData";
+
 export const sections = [
   {
     label: "Section 1",
     description: "GameDataLayer 섹션 1 콘텐츠를 여기에 연결하세요.",
+    render: () => <BaseData />,
   },
   {
     label: "Section 2",

@@ -8,6 +8,7 @@ export default function GameDataLayer() {
   const { sectionKind, handleSelect } = useSectionState("gameSectionKind");
 
   const currentSection = sections[sectionKind] ?? sections[0];
+  const CurrentSectionView = currentSection?.render;
 
   return (
     <div className={styles.pageLayout}>
@@ -28,10 +29,14 @@ export default function GameDataLayer() {
         ))}
       </aside>
       <section className={styles.pageContent}>
-        <div className={styles.panel}>
-          <h2>{currentSection.label}</h2>
-          <p>{currentSection.description}</p>
-        </div>
+        {CurrentSectionView ? (
+          <CurrentSectionView />
+        ) : (
+          <div className={styles.panel}>
+            <h2>{currentSection.label}</h2>
+            <p>{currentSection.description}</p>
+          </div>
+        )}
       </section>
     </div>
   );
