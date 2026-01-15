@@ -1,27 +1,27 @@
 "use client";
 
 import { PropsWithChildren } from "react";
-import styles from "./AppShell.module.css";
+import styles from "@/common/Common.module.css";
 import { usePageContext } from "./PageContext";
 
 export default function AppShell({ children }: PropsWithChildren) {
   const { pageKind, pageNames, setPageKind } = usePageContext();
 
   return (
-    <div className={styles.shell}>
-      <header className={styles.header}>
+    <div className={styles.appShell}>
+      <header className={styles.appShellHeader}>
         {/* <button className={styles.leftButton} type="button">
           Menu
         </button> */}
-        <div className={styles.titleBlock}>
-          <div className={styles.tabs}>
+        <div className={styles.appShellTitleBlock}>
+          <div className={styles.appShellTabs}>
             {pageNames.map((name, index) => (
               <button
                 key={name}
                 className={
                   pageKind === index
-                    ? `${styles.tabButton} ${styles.tabButtonActive}`
-                    : styles.tabButton
+                    ? `${styles.appShellTabButton} ${styles.appShellTabButtonActive}`
+                    : styles.appShellTabButton
                 }
                 type="button"
                 onClick={() => setPageKind(index)}
@@ -31,9 +31,9 @@ export default function AppShell({ children }: PropsWithChildren) {
             ))}
           </div>
         </div>
-        <div className={styles.rightSlot} />
+        <div className={styles.appShellRightSlot} />
       </header>
-      <main className={styles.main}>{children}</main>
+      <main className={styles.appShellMain}>{children}</main>
     </div>
   );
 }
