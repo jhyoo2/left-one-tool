@@ -157,7 +157,7 @@
 }
 
 .pageNavButton {
-  text-align: left;
+  text-align: center;
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -233,8 +233,8 @@
 
 .appShellTabButton {
   padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid #d8deea;
+  border-radius: 8px;
+  border: 1px solid rgba(200, 208, 224, 0.8);
   background: #f4f6fb;
   color: #1b1f2a;
   font-size: 12px;
