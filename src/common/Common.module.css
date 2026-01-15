@@ -74,52 +74,43 @@
   color: #4a5163;
 }
 
-.gameDataLayer {
+.pageLayout {
+  display: grid;
+  grid-template-columns: minmax(140px, 180px) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.pageNav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.gameDataTabs {
-  display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(216, 222, 234, 0.7);
+  background: rgba(244, 246, 251, 0.85);
 }
 
-.gameDataTabButton {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(200, 208, 224, 0.8);
-  background: #f4f6fb;
+.pageNavButton {
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
   color: #1b1f2a;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.gameDataTabButtonActive {
+.pageNavButtonActive {
   background: #1b1f2a;
   color: #fff;
   border-color: #1b1f2a;
 }
 
-.gameDataPanel {
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(216, 222, 234, 0.7);
-  background: #fff;
-  box-shadow: 0 12px 24px rgba(18, 24, 40, 0.08);
-}
-
-.gameDataPanelTitle {
-  margin: 0 0 6px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.gameDataPanelText {
-  margin: 0;
-  color: #4a5163;
+.pageContent {
+  min-height: 240px;
 }
 
 .appShell {
@@ -215,5 +206,16 @@
 
   .appShellTitle {
     justify-self: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .pageLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .pageNav {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }

@@ -10,7 +10,7 @@ import styles from "@/common/Common.module.css";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
-  const { pageKind, pageNames } = usePageContext();
+  const { pageKind } = usePageContext();
 
   useEffect(() => {
     const nakamaManager = NakamaManager.getInstance() as any;
@@ -23,7 +23,6 @@ export default function Home() {
     }
   }, []);
 
-  const currentLabel = pageNames[pageKind] ?? "페이지";
   let panel = <GameDataLayer />;
   if (pageKind === 1) {
     panel = <UnitDataPanel />;

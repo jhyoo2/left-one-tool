@@ -1,10 +1,37 @@
+"use client";
+
 import styles from "@/common/Common.module.css";
+import { useSectionState } from "@/common/useSectionState";
+import { sections } from "./sections";
 
 export default function UnitDataPanel() {
+  const { sectionKind, handleSelect } = useSectionState("unitSectionKind");
+  const currentSection = sections[sectionKind] ?? sections[0];
+
   return (
-    <div className={styles.panel}>
-      <h2>유닛 데이터 관리</h2>
-      <p>유닛 데이터 관련 컴포넌트를 여기에 연결하세요.</p>
+    <div className={styles.pageLayout}>
+      <aside className={styles.pageNav}>
+        {sections.map((section, index) => (
+          <button
+            key={section.label}
+            className={
+              sectionKind === index
+                ? `${styles.pageNavButton} ${styles.pageNavButtonActive}`
+                : styles.pageNavButton
+            }
+            type="button"
+            onClick={() => handleSelect(index)}
+          >
+            {section.label}
+          </button>
+        ))}
+      </aside>
+      <section className={styles.pageContent}>
+        <div className={styles.panel}>
+          <h2>{currentSection.label}</h2>
+          <p>{currentSection.description}</p>
+        </div>
+      </section>
     </div>
   );
 }

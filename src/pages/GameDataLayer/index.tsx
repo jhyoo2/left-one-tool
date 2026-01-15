@@ -1,67 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import styles from "@/common/Common.module.css";
-
-const sectionNames = [
-  "Section 1",
-  "Section 2",
-  "Section 3",
-  "Section 4",
-  "Section 5",
-  "Section 6",
-  "Section 7",
-  "Section 8",
-  "Section 9",
-];
+import { useSectionState } from "@/common/useSectionState";
+import { sections } from "./sections";
 
 export default function GameDataLayer() {
-  const [sectionKind, setSectionKind] = useState(0);
+  const { sectionKind, handleSelect } = useSectionState("gameSectionKind");
 
-  useEffect(() => {
-    const saved = window.localStorage.getItem("gameSectionKind");
-    if (saved) {
-      const next = Number(JSON.parse(saved));
-      if (!Number.isNaN(next)) {
-        setSectionKind(next);
-      }
-    }
-  }, []);
-
-  const handleSelect = (index: number) => {
-    setSectionKind(index);
-    window.localStorage.setItem("gameSectionKind", JSON.stringify(index));
-  };
-
-  const currentLabel = sectionNames[sectionKind] ?? "Section";
+  const currentSection = sections[sectionKind] ?? sections[0];
 
   return (
-    <div className={styles.panel}>
-      <div className={styles.gameDataLayer}>
-        <div className={styles.gameDataTabs}>
-          {sectionNames.map((name, index) => (
-            <button
-              key={name}
-              className={
-                sectionKind === index
-                  ? `${styles.gameDataTabButton} ${styles.gameDataTabButtonActive}`
-                  : styles.gameDataTabButton
-              }
-              type="button"
-              onClick={() => handleSelect(index)}
-            >
-              {name}
-            </button>
-          ))}
+    <div className={styles.pageLayout}>
+      <aside className={styles.pageNav}>
+        {sections.map((section, index) => (
+          <button
+            key={section.label}
+            className={
+              sectionKind === index
+                ? `${styles.pageNavButton} ${styles.pageNavButtonActive}`
+                : styles.pageNavButton
+            }
+            type="button"
+            onClick={() => handleSelect(index)}
+          >
+            {section.label}
+          </button>
+        ))}
+      </aside>
+      <section className={styles.pageContent}>
+        <div className={styles.panel}>
+          <h2>{currentSection.label}</h2>
+          <p>{currentSection.description}</p>
         </div>
-        <div className={styles.gameDataPanel}>
-          <h3 className={styles.gameDataPanelTitle}>{currentLabel}</h3>
-          <p className={styles.gameDataPanelText}>
-            alcatmist-tool의 GameDataLayer 섹션 컴포넌트를 여기에 연결하면
-            됩니다.
-          </p>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
