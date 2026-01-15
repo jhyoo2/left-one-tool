@@ -7,6 +7,7 @@ import { sections } from "./sections";
 export default function UnitDataPanel() {
   const { sectionKind, handleSelect } = useSectionState("unitSectionKind");
   const currentSection = sections[sectionKind] ?? sections[0];
+  const CurrentSectionView = currentSection?.render;
 
   return (
     <div className={styles.pageLayout}>
@@ -27,10 +28,14 @@ export default function UnitDataPanel() {
         ))}
       </aside>
       <section className={styles.pageContent}>
-        <div className={styles.panel}>
-          <h2>{currentSection.label}</h2>
-          <p>{currentSection.description}</p>
-        </div>
+        {CurrentSectionView ? (
+          <CurrentSectionView />
+        ) : (
+          <div className={styles.panel}>
+            <h2>{currentSection.label}</h2>
+            <p>{currentSection.description}</p>
+          </div>
+        )}
       </section>
     </div>
   );

@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import NakamaManager from "@/lib/nakama/NakamaManager";
 import { usePageContext } from "@/components/PageContext";
-import GameDataLayer from "@/pages/GameDataLayer";
-import UnitDataPanel from "@/pages/UnitDataPanel";
-import StageDataPanel from "@/pages/StageDataPanel";
+import { pageEntries } from "@/pages/pageRegistry";
 import styles from "@/common/Common.module.css";
 
 export default function Home() {
@@ -23,19 +21,14 @@ export default function Home() {
     }
   }, []);
 
-  let panel = <GameDataLayer />;
-  if (pageKind === 1) {
-    panel = <UnitDataPanel />;
-  } else if (pageKind === 2) {
-    panel = <StageDataPanel />;
-  }
+  const CurrentPage = pageEntries[pageKind]?.component ?? pageEntries[0].component;
 
   return (
     <div className={styles.page}>
       {!loaded ? (
         <div className={styles.loading}>data is loading...</div>
       ) : (
-        <>{panel}</>
+        <CurrentPage />
       )}
     </div>
   );

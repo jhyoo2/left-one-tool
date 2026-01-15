@@ -2,18 +2,13 @@
 
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { pageNames } from "@/pages/pageRegistry";
 
 type PageContextValue = {
   pageKind: number;
   setPageKind: (next: number) => void;
   pageNames: string[];
 };
-
-const pageNames = [
-  "1. 게임 데이터 관리",
-  "2. 유닛 데이터 관리",
-  "3. 스테이지 데이터 관리",
-];
 
 const PageContext = createContext<PageContextValue | null>(null);
 
