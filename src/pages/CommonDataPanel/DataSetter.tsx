@@ -66,6 +66,7 @@ export default function DataSetter() {
     try {
       const text = await readFileAsync(file, 1);
       setJsonText(text);
+      setDbKey(file.name);
     } catch (error) {
       alert("JSON 파일을 읽지 못했습니다.");
     }
